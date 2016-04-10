@@ -121,6 +121,22 @@ public:
 	 * Returns the x coordinate of this PageView as
 	 * assigned by the Layout
 	 */
+	/**
+	 * Returns the width of this PageView as assigned
+	 * by the Layout
+	 */
+	int getDisplayWidth_c() const;
+	/**
+	 * Returns the height of this PageView as assigned
+	 * by the Layout
+	 */
+	int getDisplayHeight_c() const;
+
+	/**
+	 * Returns the x coordinate of this PageView as
+	 * assigned by the Layout
+	 */
+
 	int getX() const;
 
 	/**
@@ -211,6 +227,8 @@ private:
 	 * Unixtimestam when the page was last time in the visible area
 	 */
 	int lastVisibleTime;
+
+	int scale_factor;
 
 	GMutex repaintRectMutex;
 	GList * rerenderRects;

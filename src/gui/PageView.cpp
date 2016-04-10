@@ -77,6 +77,9 @@ PageView::PageView(XournalView* xournal, PageRef page)
 	                                xournal->getControl()->getToolHandler(), this);
 
 	this->inputHandler = NULL;
+
+	this->scale_factor= gtk_widget_get_scale_factor (xournal->getWidget());
+	printf("Scale factor is %d\n",this->scale_factor);
 }
 
 PageView::~PageView()
@@ -875,13 +878,15 @@ bool PageView::paintPage(cairo_t* cr, GdkRectangle* rect)
 
 	g_mutex_lock(&this->drawingMutex);
 
-	int dispWidth = getDisplayWidth();
-	int dispHeight = getDisplayHeight();
+	int dispWidth = getDisplayWidth()*scale_factor;
+	int dispHeight = getDisplayHeight()*scale_factor;
 
 	if (this->crBuffer == NULL)
 	{
 		this->crBuffer = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, dispWidth,
 		                                            dispHeight);
+		cairo_surface_set_device_scale (this->crBuffer,scale_factor,scale_factor);
+
 		cairo_t* cr2 = cairo_create(this->crBuffer);
 		cairo_set_source_rgb(cr2, 1, 1, 1);
 		cairo_rectangle(cr2, 0, 0, dispWidth, dispHeight);
@@ -905,6 +910,7 @@ bool PageView::paintPage(cairo_t* cr, GdkRectangle* rect)
 
 	cairo_save(cr);
 
+	cairo_surface_set_device_scale (this->crBuffer,scale_factor,scale_factor);
 	double width = cairo_image_surface_get_width(this->crBuffer);
 	if (width != dispWidth)
 	{
@@ -1100,6 +1106,21 @@ int PageView::getDisplayHeight() const
 
 	return this->page->getHeight() * this->xournal->getZoom();
 }
+
+int PageView::getDisplayWidth_c() const
+{
+	XOJ_CHECK_TYPE(PageView);
+
+	return this->page->getWidth() * this->xournal->getZoom()/2. ;
+}
+
+int PageView::getDisplayHeight_c() const
+{
+	XOJ_CHECK_TYPE(PageView);
+
+	return this->page->getHeight() * this->xournal->getZoom()/2. ;
+}
+
 
 TexImage* PageView::getSelectedTex()
 {

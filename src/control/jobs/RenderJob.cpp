@@ -54,6 +54,10 @@ void RenderJob::rerenderRectangle(RenderJob* renderJob, Rectangle* rect, bool no
 
 	cairo_surface_t* rectBuffer = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
 	                                                         width, height);
+	cairo_surface_set_device_scale (rectBuffer,
+																	view->scale_factor,
+																	view->scale_factor);
+
 	cairo_t* crRect = cairo_create(rectBuffer);
 	cairo_translate(crRect, -x, -y);
 	cairo_scale(crRect, zoom, zoom);
@@ -207,7 +211,6 @@ void RenderJob::run(bool noThreads)
 {
 	XOJ_CHECK_TYPE(RenderJob);
 
-
 	if(handler == NULL)
 	{
 		handler = new RepaintWidgetHandler(this->view->getXournal()->getWidget());
@@ -230,11 +233,14 @@ void RenderJob::run(bool noThreads)
 	{
 		Document* doc = this->view->xournal->getDocument();
 
-		int dispWidth = this->view->getDisplayWidth();
-		int dispHeight = this->view->getDisplayHeight();
+		int dispWidth = this->view->getDisplayWidth()*this->view->scale_factor;
+		int dispHeight = this->view->getDisplayHeight()*this->view->scale_factor;
 
 		cairo_surface_t* crBuffer = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
 		                                                       dispWidth, dispHeight);
+		cairo_surface_set_device_scale (crBuffer,
+																		this->view->scale_factor,
+																		this->view->scale_factor);
 		cairo_t* cr = cairo_create(crBuffer);
 		cairo_scale(cr, zoom, zoom);
 
