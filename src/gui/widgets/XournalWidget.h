@@ -62,6 +62,10 @@ struct _GtkXournal
 	int scrollOffsetY;
 	bool inScrolling;
 
+	int event_count=0;
+	int ev_time_prev=0;
+	int ev_time_acc=0;
+
 	/**
 	 * Selected content, if any
 	 */

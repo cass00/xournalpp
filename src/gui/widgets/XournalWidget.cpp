@@ -498,6 +498,22 @@ gboolean gtk_xournal_motion_notify_event(GtkWidget* widget,
 	GtkXournal* xournal = GTK_XOURNAL(widget);
 	ToolHandler* h = xournal->view->getControl()->getToolHandler();
 
+	xournal->event_count++;
+	int ev_time=event->time;
+	if (xournal->ev_time_prev==0){
+		xournal->ev_time_prev=event->time;
+	}
+
+	xournal->ev_time_acc+=(ev_time-xournal->ev_time_prev);
+	xournal->ev_time_prev=ev_time;
+
+	if (xournal->event_count==100){
+		printf("event freq %.2f Hz\n",(double)100/xournal->ev_time_acc*1e3);
+		printf("event time: %d \n",xournal->ev_time_acc);
+		xournal->ev_time_acc=0;
+		xournal->event_count=0;
+	}
+
   if (xournal->view->zoom_gesture_active)
     {
       return TRUE;
