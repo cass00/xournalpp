@@ -236,7 +236,7 @@ Rectangle* gtk_xournal_get_visible_area(GtkWidget* widget, PageView* p)
 
 bool gtk_xournal_scroll_callback(GtkXournal* xournal)
 {
-	gdk_threads_enter();
+	//gdk_threads_leave();
 
 	xournal->layout->scrollRelativ(xournal->scrollOffsetX, xournal->scrollOffsetY);
 
@@ -244,7 +244,7 @@ bool gtk_xournal_scroll_callback(GtkXournal* xournal)
 	xournal->scrollOffsetX = 0;
 	xournal->scrollOffsetY = 0;
 
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 	return false;
 }

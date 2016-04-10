@@ -154,7 +154,7 @@ private:
 
 		g_mutex_unlock(&data->mutex);
 
-		gdk_threads_enter();
+		//gdk_threads_leave();
 
 		gtk_widget_queue_draw(data->widget);
 
@@ -175,7 +175,7 @@ private:
 
 		gdk_flush();
 
-		gdk_threads_leave();
+		//gdk_threads_leave();
 
 		// do not call again
 		return false;

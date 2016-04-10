@@ -256,7 +256,7 @@ bool SidebarPreviews::scrollToPreview(SidebarPreviews* sidebar)
 	if (sidebar->selectedPage >= 0 &&
 	    sidebar->selectedPage < sidebar->previewCount)
 	{
-		gdk_threads_enter();
+		//gdk_threads_leave();
 
 		SidebarPreviewPage* p = sidebar->previews[sidebar->selectedPage];
 		GtkWidget* widget = p->getWidget();
@@ -274,7 +274,7 @@ bool SidebarPreviews::scrollToPreview(SidebarPreviews* sidebar)
 
 		gtk_adjustment_clamp_page(vadj, y, y + allocation.height);
 		gtk_adjustment_clamp_page(hadj, x, x + allocation.width);
-		gdk_threads_leave();
+		//gdk_threads_leave();
 	}
 	return false;
 }

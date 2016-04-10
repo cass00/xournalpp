@@ -31,9 +31,9 @@ void BlockingJob::execute(bool noThreads)
 
 bool BlockingJob::finished(Control* control)
 {
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	control->unblock();
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 	// do not call again
 	return false;

@@ -105,11 +105,11 @@ void SidebarPreviewPage::paint(cairo_t* cr)
 		}
 
 		this->firstPainted = true;
-		gdk_threads_enter();
+		//gdk_threads_leave();
 		gdk_window_set_background(gtk_widget_get_window(widget),
 		                          &gtk_widget_get_style(widget)->white);
 		gtk_widget_queue_draw(this->widget);
-		gdk_threads_leave();
+		//gdk_threads_leave();
 		return;
 	}
 

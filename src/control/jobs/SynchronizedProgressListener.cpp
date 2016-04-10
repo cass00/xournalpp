@@ -39,9 +39,9 @@ bool SynchronizedProgressListener::setMaxCallback(SynchronizedProgressListener*
 {
 	XOJ_CHECK_TYPE_OBJ(listener, SynchronizedProgressListener);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	listener->target->setMaximumState(listener->max);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 	listener->maxIdleId = 0;
 	return false; // do not call again
@@ -52,9 +52,9 @@ bool SynchronizedProgressListener::setCurrentCallback(
 {
 	XOJ_CHECK_TYPE_OBJ(listener, SynchronizedProgressListener);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	listener->target->setCurrentState(listener->current);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 	listener->currentIdleId = 0;
 	return false; // do not call again

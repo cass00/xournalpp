@@ -79,7 +79,7 @@ void DocumentView::drawStroke(cairo_t* cr, Stroke* s, int startPoint,
 		return;
 	}
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 
 	if(changeSource)
 	{
@@ -99,7 +99,7 @@ void DocumentView::drawStroke(cairo_t* cr, Stroke* s, int startPoint,
 
 	cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
 	cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 	// don't render eraseable for previews
 	if (s->getEraseable() && !this->dontRenderEditingStroke)
@@ -114,7 +114,7 @@ void DocumentView::drawStroke(cairo_t* cr, Stroke* s, int startPoint,
 	// No pressure sensitivity, easy draw a line...
 	if (!s->hasPressure())
 	{
-		gdk_threads_enter();
+		//gdk_threads_leave();
 		if(scaleFactor == 1)
 		{
 			// Set width
@@ -141,7 +141,7 @@ void DocumentView::drawStroke(cairo_t* cr, Stroke* s, int startPoint,
 		}
 
 		cairo_stroke(cr);
-		gdk_threads_leave();
+		//gdk_threads_leave();
 		return;
 	}
 
@@ -153,7 +153,7 @@ void DocumentView::drawStroke(cairo_t* cr, Stroke* s, int startPoint,
 	Point lastPoint1(-1, -1);
 	lastPoint1 = points.next();
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	while (points.hasNext())
 	{
 		Point p = points.next();
@@ -184,7 +184,7 @@ void DocumentView::drawStroke(cairo_t* cr, Stroke* s, int startPoint,
 	}
 
 	cairo_stroke(cr);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 void DocumentView::drawText(cairo_t* cr, Text* t)
@@ -204,7 +204,7 @@ void DocumentView::drawImage(cairo_t* cr, Image* i)
 {
 	XOJ_CHECK_TYPE(DocumentView);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	cairo_matrix_t defaultMatrix = { 0 };
 	cairo_get_matrix(cr, &defaultMatrix);
 
@@ -223,13 +223,13 @@ void DocumentView::drawImage(cairo_t* cr, Image* i)
 	cairo_paint(cr);
 
 	cairo_set_matrix(cr, &defaultMatrix);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 void DocumentView::drawTexImage(cairo_t* cr, TexImage* i)
 {
 	XOJ_CHECK_TYPE(DocumentView);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	cairo_matrix_t defaultMatrix = { 0 };
 	cairo_get_matrix(cr, &defaultMatrix);
 
@@ -248,7 +248,7 @@ void DocumentView::drawTexImage(cairo_t* cr, TexImage* i)
 	cairo_paint(cr);
 
 	cairo_set_matrix(cr, &defaultMatrix);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 void DocumentView::drawElement(cairo_t* cr, Element* e)
@@ -288,13 +288,13 @@ void DocumentView::drawLayer(cairo_t* cr, Layer* l)
 		Element* e = it.next();
 
 #ifdef SHOW_ELEMENT_BOUNDS
-		gdk_threads_enter();
+		//gdk_threads_leave();
 		cairo_set_source_rgb(cr, 0, 1, 0);
 		cairo_set_line_width(cr, 1);
 		cairo_rectangle(cr, e->getX(), e->getY(), e->getElementWidth(),
 		                e->getElementHeight());
 		cairo_stroke(cr);
-		gdk_threads_leave();
+		//gdk_threads_leave();
 #endif // SHOW_ELEMENT_BOUNDS
 		//cairo_new_path(cr);
 
@@ -339,7 +339,7 @@ void DocumentView::paintBackgroundImage()
 		cairo_matrix_t matrix = { 0 };
 		cairo_get_matrix(cr, &matrix);
 
-		gdk_threads_enter();
+		//gdk_threads_leave();
 		int width = gdk_pixbuf_get_width(pixbuff);
 		int height = gdk_pixbuf_get_height(pixbuff);
 
@@ -352,7 +352,7 @@ void DocumentView::paintBackgroundImage()
 		cairo_paint(cr);
 
 		cairo_set_matrix(cr, &matrix);
-		gdk_threads_leave();
+		//gdk_threads_leave();
 	}
 }
 
@@ -362,10 +362,10 @@ void DocumentView::paintBackgroundColor()
 
 	applyColor(cr, page->getBackgroundColor());
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	cairo_rectangle(cr, 0, 0, width, height);
 	cairo_fill(cr);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 const double graphSize = 14.17;
@@ -376,7 +376,7 @@ void DocumentView::paintBackgroundGraph()
 
 	applyColor(cr, 0x40A0FF);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	cairo_set_line_width(cr, 0.5);
 
 	for (double x = graphSize; x < width; x += graphSize)
@@ -392,7 +392,7 @@ void DocumentView::paintBackgroundGraph()
 	}
 
 	cairo_stroke(cr);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 const double roulingSize = 24;
@@ -403,7 +403,7 @@ void DocumentView::paintBackgroundRuled()
 
 	applyColor(cr, 0x40A0FF);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	cairo_set_line_width(cr, 0.5);
 
 	for (double y = 80; y < height; y += roulingSize)
@@ -413,7 +413,7 @@ void DocumentView::paintBackgroundRuled()
 	}
 
 	cairo_stroke(cr);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 void DocumentView::paintBackgroundLined()
@@ -422,14 +422,14 @@ void DocumentView::paintBackgroundLined()
 
 	applyColor(cr, 0x40A0FF);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	cairo_set_line_width(cr, 0.5);
 
 	applyColor(cr, 0xFF0080);
 	cairo_move_to(cr, 72, 0);
 	cairo_line_to(cr, 72, height);
 	cairo_stroke(cr);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 void DocumentView::drawSelection(cairo_t* cr, ElementContainer* container)

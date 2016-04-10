@@ -151,9 +151,9 @@ void RectSelection::paint(cairo_t* cr, GdkRectangle* rect, double zoom)
 
 	// set the line always the same size on display
 	cairo_set_line_width(cr, 1 / zoom);
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	gdk_cairo_set_source_rgba(cr, &selectionColor);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 
 	int aX = MIN(this->sx, this->ex);
@@ -224,9 +224,9 @@ void RegionSelect::paint(cairo_t* cr, GdkRectangle* rect, double zoom)
 
 		// set the line always the same size on display
 		cairo_set_line_width(cr, 1 / zoom);
-		gdk_threads_enter();
+		//gdk_threads_leave();
 		gdk_cairo_set_source_rgba(cr, &selectionColor);
-		gdk_threads_leave();
+		//gdk_threads_leave();
 
 		RegionPoint* r0 = (RegionPoint*) this->points->data;
 		cairo_move_to(cr, r0->x, r0->y);

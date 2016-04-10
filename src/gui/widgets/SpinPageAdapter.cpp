@@ -36,9 +36,9 @@ bool SpinPageAdapter::pageNrSpinChangedTimerCallback(SpinPageAdapter* adapter)
 	adapter->page = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(
 	                                                     adapter->widget));
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	adapter->firePageChanged();
-	gdk_threads_leave();
+	//gdk_threads_leave();
 	return false;
 }
 

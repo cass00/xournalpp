@@ -280,14 +280,14 @@ bool EditSelectionContents::repaintSelection(EditSelectionContents* selection)
 {
 	XOJ_CHECK_TYPE_OBJ(selection, EditSelectionContents);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 
 	// delete the selection buffer, force a redraw
 	selection->deleteViewBuffer();
 	selection->sourceView->getXournal()->repaintSelection();
 	selection->rescaleId = 0;
 
-	gdk_threads_leave();
+	//gdk_threads_leave();
 	return false;
 }
 

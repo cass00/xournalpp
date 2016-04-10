@@ -77,7 +77,7 @@ void VerticalToolHandler::paint(cairo_t* cr, GdkRectangle* rect, double zoom)
 
 	cairo_set_line_width(cr, 1);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 
 	cairo_rectangle(cr, 0, 0,
 	                this->page->getWidth() * zoom,
@@ -113,7 +113,7 @@ void VerticalToolHandler::paint(cairo_t* cr, GdkRectangle* rect, double zoom)
 
 	cairo_set_source_surface(cr, this->crBuffer, 0, this->endY * zoom);
 	cairo_paint(cr);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 void VerticalToolHandler::currentPos(double x, double y)

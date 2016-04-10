@@ -1991,7 +1991,7 @@ void Control::setPageInsertType(PageInsertType type)
 
 bool Control::invokeCallback(CallbackData* cb)
 {
-	gdk_threads_enter();
+	//gdk_threads_leave();
 
 	XOJ_CHECK_TYPE_OBJ(cb->control, Control);
 
@@ -2017,7 +2017,7 @@ bool Control::invokeCallback(CallbackData* cb)
 
 	delete cb;
 
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 	return false;
 }
@@ -2658,10 +2658,10 @@ void Control::setCurrentState(int state)
 {
 	XOJ_CHECK_TYPE(Control);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	gtk_progress_bar_set_fraction(this->pgState,
 	                              double(state) / this->maxState);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 bool Control::save(bool synchron)

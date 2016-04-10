@@ -70,10 +70,10 @@ bool Job::callAfterCallback(Job* job)
 {
 	XOJ_CHECK_TYPE_OBJ(job, Job);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 
 	job->afterRun();
-	gdk_threads_leave();
+	//gdk_threads_leave();
 
 	job->afterRunId = 0;
 	job->unref();

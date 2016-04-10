@@ -109,11 +109,11 @@ void PreviewJob::run(bool noThreads)
 	this->sidebarPreview->crBuffer = crBuffer;
 
 	if(!noThreads)
-		gdk_threads_enter();
+		//gdk_threads_leave();
 	gtk_widget_queue_draw(this->sidebarPreview->widget);
 	if(!noThreads)
 	{
-		gdk_threads_leave();
+		//gdk_threads_leave();
 
 		g_mutex_unlock(&this->sidebarPreview->drawingMutex);
 	}

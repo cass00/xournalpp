@@ -21,9 +21,9 @@ RecentManager::RecentManager()
 	this->recentHandlerId = g_signal_connect(recentManager, "changed",
 	                                         G_CALLBACK (recentManagerChangedCallback), this);
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	updateMenu();
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }
 
 RecentManager::~RecentManager()

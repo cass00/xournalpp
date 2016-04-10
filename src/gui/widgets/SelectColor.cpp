@@ -176,7 +176,7 @@ static gboolean selectcolor_draw(GtkWidget* widget, cairo_t* cr)
 {
 	GtkAllocation allocation;
 
-	gdk_threads_enter();
+	//gdk_threads_leave();
 	cairo_fill(cr);
 
 	gint color = SELECT_COLOR(widget)->color;
